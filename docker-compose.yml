@@ -1,0 +1,48 @@
+version: '3'
+services:
+  caddy:
+    container_name: caddy
+    image: caddy:latest
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./app:/var/www/html/public
+      - ./caddy_data:/data
+      - ./caddy_config:/config
+    depends_on:
+      - php-fpm
+    links:
+      - php-fpm
+
+  php-fpm:
+    container_name: php-fpm
+    image: php-fpm
+    restart: unless-stopped
+    volumes:
+      - ./app:/var/www/html/public
+    expose:
+      - "9000"
+    links:
+      - mysql_server
+    depends_on:
+      - mysql_server
+
+  mysql_server:
+    image: mysql:latest
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: /run/secrets/db_root_password
+      MYSQL_DATABASE: ESP-BLE-MESH
+    expose:
+      - "3306"
+
+volumes:
+  caddy_data:
+  caddy_config:
+
+secrets:
+   db_root_password:
+     file: ./secrets/db_root_password.txt
