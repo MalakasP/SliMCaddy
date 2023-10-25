@@ -9,7 +9,7 @@ services:
       - "443:443"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
-      - ./app:/var/www/html/public
+      - ./app:/var/www/html/app
       - ./caddy_data:/data
       - ./caddy_config:/config
     depends_on:
@@ -22,7 +22,7 @@ services:
     image: php-fpm
     restart: unless-stopped
     volumes:
-      - ./app:/var/www/html/public
+      - ./app:/var/www/html/app
     expose:
       - "9000"
     links:

@@ -1,6 +1,6 @@
 FROM php:8.2-fpm
 
-WORKDIR /var/www/html
+WORKDIR /var/www/html/app/src/public
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
