@@ -1,5 +1,5 @@
 slimcaddy.localhost {
-	root * /var/www/html/public
+	root * /var/www/html/app/src/public
 	php_fastcgi php-fpm:9000
 	file_server
 }
