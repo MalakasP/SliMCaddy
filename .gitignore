@@ -1,3 +1,5 @@
 secrets/
 
 caddy_*
+
+.vscode/

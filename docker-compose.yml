@@ -34,10 +34,12 @@ services:
     image: mysql:latest
     container_name: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: /run/secrets/db_root_password
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
       MYSQL_DATABASE: ESP-BLE-MESH
     expose:
       - "3306"
+    secrets:
+      - db_root_password
 
 volumes:
   caddy_data:
