@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
-(new \App\App)->boot()->setMiddleware()->setRoutes()->run();
+use App\App;
+
+(new App)->boot()->setMiddleware()->setRoutes()->run();
