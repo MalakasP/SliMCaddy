@@ -28,6 +28,7 @@ class SensorDataRepository
                 sd.sensor_address,
                 sd.property_id,
                 sd.value,
+                sd.timestamp
                 pm.multiplier,
                 CAST(sd.value / pm.multiplier AS DECIMAL(10,2)) AS floating_value
                 FROM sensor_data sd
@@ -37,6 +38,8 @@ class SensorDataRepository
         if (0 !== $property_id) {
             $sql .= " AND sd.property_id = :property_id";
         }
+
+        $sql .= " ORDER BY id DESC LIMIT 100";
 
         $params = [
             'address' => $address,

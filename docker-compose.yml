@@ -16,6 +16,9 @@ services:
       - php-fpm
     links:
       - php-fpm
+    networks:
+      - public
+      - backend
 
   php-fpm:
     container_name: php-fpm
@@ -29,6 +32,8 @@ services:
       - mysql_server
     depends_on:
       - mysql_server
+    networks:
+      - backend
 
   mysql_server:
     image: mysql:latest
@@ -40,6 +45,14 @@ services:
       - "3306"
     secrets:
       - db_root_password
+    networks:
+      - backend
+
+networks:
+  backend:
+    name: web-backend
+  public:
+    name: web-public
 
 volumes:
   caddy_data:
